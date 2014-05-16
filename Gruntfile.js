@@ -29,6 +29,14 @@ module.exports = function(grunt) {
                 }
             }
         },
+        autoprefixer: {
+            build: {
+                expand: true,
+                cwd: '<%=config.dist%>/css',
+                src: [ '*.css' ],
+                dest: '<%=config.dist%>/css'
+            }
+        },
         cssmin: {
             minify: {
                 expand: true,
@@ -77,7 +85,7 @@ module.exports = function(grunt) {
         watch: {
             compass: {
                 files: ['<%=config.source%>/sass/**/*.scss'],
-                tasks: ['compass', 'cssmin'],
+                tasks: ['compass', 'autoprefixer', 'cssmin'],
             },
             uglify: {
                 files: ['<%=config.source%>/js/*.js'],
@@ -106,6 +114,7 @@ module.exports = function(grunt) {
  
     // 3. Where we tell Grunt we plan to use this plug-in.
     // grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-coffee');
@@ -118,6 +127,6 @@ module.exports = function(grunt) {
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', ['watch']);
     // grunt.registerTask('build', ['sass', 'uglify', 'imagemin']);
-    grunt.registerTask('build', ['clean', 'compass', 'cssmin', 'coffee', 'bower', 'uglify', 'imagemin']);
+    grunt.registerTask('build', ['clean', 'compass', 'autoprefixer', 'cssmin', 'coffee', 'bower', 'uglify', 'imagemin']);
  
 };
